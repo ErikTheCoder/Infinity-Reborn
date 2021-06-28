@@ -1,4 +1,11 @@
 .tabs{
-    display:flex;
+    display: flex;
     justify-content: center;
+}
+
+.tab{
+    padding: 1em;
+    color: gray;
+    border: 0.5em;
+    border: black;
 }
