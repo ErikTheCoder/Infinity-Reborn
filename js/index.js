@@ -33,7 +33,7 @@ function toTab(e) {
 toTab("mainview");
 
 function buyNeutralWave() {
-  let cost = getCosts();
+  let cost = temp.neutralWaveCost;
   if (player.peaks.gte(cost)) {
     player.peaks = player.peaks.sub(cost);
     player.neutralWaves = player.neutralWaves.add(1);
