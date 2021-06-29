@@ -34,10 +34,10 @@ function updateCosts(){
 }
 
 function updateDisplay(){
+    document.getElementById('peaksAmount').innerHTML = "You have reached " + format(player.peaks, 1) + " peaks";
+    document.getElementById('peaksGain').innerHTML = "Your wave is moving at " + format(temp.peaksGain, 1) + " m/s";
+    document.getElementById('wavelength').innerHTML = "Your wavelength is " + format(temp.wavelength, 1) + " m";
     if (tab == "mainview") {
-        document.getElementById('peaksAmount').innerHTML = "You have reached " + format(player.peaks, 1) + " peaks";
-        document.getElementById('peaksGain').innerHTML = "Your wave is moving at " + format(temp.peaksGain, 1) + " m/s";
-        document.getElementById('wavelength').innerHTML = "Your wavelength is " + format(temp.wavelength, 1) + " m";
         document.getElementById('wavecosttextid').innerHTML = "Cost: " + format(temp.neutralWaveCost, 0);
         document.getElementById('firstwaveamount').innerHTML = "You have " + format(player.neutralWaves, 0) + " neutral waves";
     }
