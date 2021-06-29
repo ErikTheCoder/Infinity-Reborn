@@ -5,17 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Reborn</title>
     <link rel="stylesheet" href="css/stylesheets.css">
+    <script src="js/index.js"></script>
 </head>
-<body>
+<body id="body" class="body">
+    
     <div class="tabs">
-        <div class="tab maintab">Main</div>
+        <div class="tab maintab" onclick="toTab('mainview')">Main</div>
         <div class="tab prestigetab">Prestige</div>
-        <div class="tab infinitytab">Infinty</div>
+        <div class="tab infinitytab">Infinity</div>
         <div class="tab layerstab">Layers</div>
         <div class="tab metatab">Meta</div>
         <div class="tab ultimacytab">Ultimacy</div>
         <div class="tab deathtab">Death</div>
-        <div class="tab existancetab">Existance</div>
+        <div class="tab existencetab">Existence</div>
+    </div>
+    <div class="view" id="mainview">
+        yes
+    </div>
+    <div class="view" id="prestigeview">
+        no
+    </div>
+    <div class="view" id="infinityview">
+        maybe
+    </div>
+    <div class="view" id="layersview">
+        why
+    </div>
+    <div class="view" id="metaview">
+        where
+    </div>
+    <div class="view" id="ultimacyview">
+        how
+    </div>
+    <div class="view" id="deathview">
+        when
+    </div>
+    <div class="view" id="existenceview">
+        who
     </div>
 </body>
+
 </html>
