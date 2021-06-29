@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Reborn</title>
     <link rel="stylesheet" href="css/stylesheets.css">
+    <script src="js/ExpantaNum.js" defer></script>
     <script src="js/index.js" defer></script>
 </head>
 <body id="body" class="body">
-    <div id="numberDisplay"></div>
-    <div>Your wave is moving at 1m/s</div>
-    <div>Your wavelength is 1m</div>
+    <div class="numberDisplay" id="peaksAmount"></div>
+    <div class="numberDisplay" id="peaksGain" style="font-size: 20px;"></div>
+    <div class="numberDisplay" id="wavelength" style="font-size: 20px;"></div>
     <div class="tabs">
         <div class="tab maintab" onclick="toTab('mainview')">Main</div>
         <div class="tab prestigetab" onclick="toTab('prestigeview')">Prestige</div>

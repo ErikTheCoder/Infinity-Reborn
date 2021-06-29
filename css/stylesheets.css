@@ -116,7 +116,7 @@
     font-size: 1em;
 }
 
-#numberDisplay{
+.numberDisplay{
     display: flex;
     justify-content: center;
     font-size: 2em;
