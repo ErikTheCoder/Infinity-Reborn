@@ -28,7 +28,7 @@ function updateCosts(){
 }
 
 function updateDisplay(){
-    document.getElementById('numberDisplay').innerHTML = "You have reached " + peaks.toFixed(2); + " peaks";
+    document.getElementById('numberDisplay').innerHTML = "You have reached " + peaks.toFixed(2) + " peaks";
     document.getElementById('wavecosttextid').innerHTML = "Cost: " + neutralWaveCost;
     document.getElementById('firstwaveamount').innerHTML = "You have " + neutralWaves + " neutral waves"
 }
