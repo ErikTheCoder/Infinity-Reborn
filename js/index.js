@@ -1,15 +1,20 @@
-const E = (x) => { return new ExpantaNum(x) }
-
 var lastUpdate = Date.now();
-
-const PLAYER_DATA = {
-    peaks: E(1),
-    neutralWaves: E(0),
-}
-
-var player = PLAYER_DATA
+var player
 var tab = ""
 var temp = {}
+
+function setupElement() {
+    temp.el = {
+        peaksAmount: document.getElementById('peaksAmount'),
+        peaksGain: document.getElementById('peaksGain'),
+        wavelength: document.getElementById('wavelength'),
+        wavecosttextid: document.getElementById('wavecosttextid'),
+        firstwaveamount: document.getElementById('firstwaveamount'),
+    }
+    for (let x = 1; x <= NU_UPGRADES.length; x++) {
+        temp.el["nu_upg"+x] = document.getElementById('nu_upg'+x)
+    }
+}
 
 function toTab(e) {
     console.log(1)
@@ -30,22 +35,41 @@ function buyNeutralWave(){
 }
 
 function updateCosts(){
-    temp.neutralWaveCost = E(2).pow(player.neutralWaves)
+    temp.neutralWaveCostBase = E(2)
+    if (haveBuyable('neutral_wave',2).gte(1)) temp.neutralWaveCostBase = NU_UPGRADES[2].effect()
+    temp.neutralWaveCost = temp.neutralWaveCostBase.pow(player.neutralWaves)
 }
 
 function updateDisplay(){
-    document.getElementById('peaksAmount').innerHTML = "You have reached " + format(player.peaks, 1) + " peaks";
-    document.getElementById('peaksGain').innerHTML = "Your wave is moving at " + format(temp.peaksGain, 1) + " m/s";
-    document.getElementById('wavelength').innerHTML = "Your wavelength is " + format(temp.wavelength, 1) + " m";
+    temp.el.peaksAmount.innerHTML = "You have reached " + format(player.peaks, 1) + " peaks";
+    temp.el.peaksGain.innerHTML = "Your wave is moving at " + format(temp.peaksGain, 1) + " m/s";
+    temp.el.wavelength.innerHTML = "Your wavelength is " + format(temp.wavelength, 1) + " m";
     if (tab == "mainview") {
-        document.getElementById('wavecosttextid').innerHTML = "Cost: " + format(temp.neutralWaveCost, 0);
-        document.getElementById('firstwaveamount').innerHTML = "You have " + format(player.neutralWaves, 0) + " neutral waves";
+        temp.el.wavecosttextid.innerHTML = "Cost: " + format(temp.neutralWaveCost, 0);
+        temp.el.firstwaveamount.innerHTML = "You have " + format(player.neutralWaves, 0) + " neutral waves, which multiples peaks gain by "+format(temp.neutralWaveEffect,1)+"x.";
+        for (let x = 1; x <= NU_UPGRADES.length; x++) {
+            temp.el["nu_upg"+x].innerHTML = `${NU_UPGRADES[x].desc}<br>
+            Level: ${format(haveBuyable("neutral_wave", x), 0)}<br>
+            ${NU_UPGRADES[x].effDesc?"Currently: "+NU_UPGRADES[x].effDesc()+"<br>":""}
+            Cost: ${format(NU_UPGRADES[x].cost(), 0)} Neutral Waves`
+
+            temp.el["nu_upg"+x].onclick = _ => { NU_UPGRADES.buy(x) }
+
+            temp.el["nu_upg"+x].classList.add("can")
+            if (!NU_UPGRADES.can(x)) temp.el["nu_upg"+x].classList.remove("can")
+        }
     }
+}
+
+function updateNWEffect() {
+    temp.neutralWaveEffect = player.neutralWaves
+    if (haveBuyable('neutral_wave',1).gte(1)) temp.neutralWaveEffect = temp.neutralWaveEffect.mul(NU_UPGRADES[1].effect())
+    if (haveBuyable('neutral_wave',3).gte(1)) temp.neutralWaveEffect = temp.neutralWaveEffect.mul(NU_UPGRADES[3].effect())
 }
 
 function productionLoop(diff){
     temp.wavelength = E(1);
-    temp.speed = player.neutralWaves
+    temp.speed = temp.neutralWaveEffect
     temp.peaksGain = temp.speed.div(temp.wavelength)
     player.peaks = player.peaks.add(temp.peaksGain.mul(diff/1000))
 }
@@ -74,8 +98,7 @@ function loop(){
     lastUpdate = Date.now();
 
     updateCosts();
+    updateNWEffect()
     productionLoop(diff);
     updateDisplay();
 }
-
-setInterval(loop, 20)

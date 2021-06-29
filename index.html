@@ -6,9 +6,11 @@
     <title>Infinity Reborn</title>
     <link rel="stylesheet" href="css/stylesheets.css">
     <script src="js/ExpantaNum.js" defer></script>
+    <script src="js/saves.js" defer></script>
+    <script src="js/upgrades.js" defer></script>
     <script src="js/index.js" defer></script>
 </head>
-<body id="body" class="body">
+<body id="body" class="body" onload="onLoad()">
     <div class="numberDisplay" id="peaksAmount"></div>
     <div class="numberDisplay" id="peaksGain" style="font-size: 20px;"></div>
     <div class="numberDisplay" id="wavelength" style="font-size: 20px;"></div>
@@ -27,6 +29,17 @@
         <div class="wavepurchase"  onclick="buyNeutralWave()">
             <div class="wavepurchasetext">Buy a neutral wave</div>
             <div class="wavecosttext" id="wavecosttextid"></div>
+        </div>
+        <div>
+            <table class="tabs">
+                <tr>
+                    <td><button class="upgrade" id="nu_upg1"></button></td>
+                    <td><button class="upgrade" id="nu_upg2"></button></td>
+                </tr><tr>
+                    <td><button class="upgrade" id="nu_upg3"></button></td>
+                    <td><button class="upgrade" id="nu_upg4"></button></td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="view" id="prestigeview">
