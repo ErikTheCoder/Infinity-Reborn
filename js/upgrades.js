@@ -2,7 +2,7 @@ function haveBuyable(id, x) { return player.upgrades[id] ? (player.upgrades[id][
 function includesUpgrade(id, x) { return player.upgrades[id] ? player.upgrades[id].includes(x) : false }
 
 const NU_UPGRADES = {
-    can(x) { return player.neutralWaves.gte(this[x].cost()) && (x == 4 ? !haveBuyable("neutral_wave",4).lt(1) : true) },
+    can(x) { return player.neutralWaves.gte(this[x].cost()) && (x == 4 ? haveBuyable("neutral_wave",4).lt(1) : true) },
     buy(x) {
         let cost = this[x].cost()
         if (this.can(x)) {
