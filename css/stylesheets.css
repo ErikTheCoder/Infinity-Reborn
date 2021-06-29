@@ -16,44 +16,92 @@
     font-size: 5em;
 }
 
-.prestige{
+.maintab:hover{
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+.prestigetab{
     border-color: blue;
     color: blue;
     background-color: black;
 }
 
-.infinity{
+.prestigetab:hover{
+    border-color: blue;
+    color: white;
+    background-color: blue;
+}
+
+.infinitytab{
     border-color: orangered;
     color: orangered;
     background-color: black;
 }
 
-.layers{
+.infinitytab:hover{
+    border-color: orangered;
+    color: white;
+    background-color: orangered;
+}
+
+.layerstab{
     border-color:rgb(255, 4, 255);
     color: rgb(255, 4, 255);
     background-color: black;
 }
 
-.meta{
+.layerstab:hover{
+    border-color: rgb(255, 4, 255);
+    color: white;
+    background-color: rgb(255, 4, 255);
+}
+
+.metatab{
     border-color: lime;
     color: lime;
     background-color: black;
 }
 
-.ultimacy{
+.metatab:hover{
+    border-color: lime;
+    color: black;
+    background-color: lime;
+}
+
+.ultimacytab{
     border-color: red;
     color: red;
     background-color: black;
 }
 
-.death{
+.ultimacytab:hover{
+    border-color: red;
+    color: white;
+    background-color: red;
+}
+
+.deathtab{
     border-color: gray;
     color: white;
     background-color: black;
 }
 
-.existance{
+.deathtab:hover{
+    border-color: gray;
+    color: white;
+    background-color: gray;
+}
+
+.existancetab{
     border-color: cyan;
     color: cyan;
     background-color: black;
+}
+
+.existancetab:hover{
+    border-color: cyan;
+    color: black;
+    background-color: cyan;
 }
