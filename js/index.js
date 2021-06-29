@@ -17,21 +17,27 @@ function setupElement() {
 }
 
 function toTab(e) {
-    console.log(1)
-    tab = e
-    document.getElementById(e).parentNode.querySelectorAll("#" + document.getElementById(e).parentNode.id + " > .view").forEach(function(element) {
-        element.classList.add('hidden');
+  console.log(1);
+  tab = e;
+  document
+    .getElementById(e)
+    .parentNode.querySelectorAll(
+      "#" + document.getElementById(e).parentNode.id + " > .view"
+    )
+    .forEach(function (element) {
+      element.classList.add("hidden");
     });
-    document.getElementById(e).classList.remove('hidden');
+  document.getElementById(e).classList.remove("hidden");
 }
 
-toTab('mainview');
+toTab("mainview");
 
-function buyNeutralWave(){
-    if(player.peaks.gte(temp.neutralWaveCost)){
-        player.peaks = player.peaks.sub(temp.neutralWaveCost)
-        player.neutralWaves = player.neutralWaves.add(1)
-    }
+function buyNeutralWave() {
+  let cost = getCosts();
+  if (player.peaks.gte(cost)) {
+    player.peaks = player.peaks.sub(cost);
+    player.neutralWaves = player.neutralWaves.add(1);
+  }
 }
 
 function updateCosts(){
@@ -74,28 +80,35 @@ function productionLoop(diff){
     player.peaks = player.peaks.add(temp.peaksGain.mul(diff/1000))
 }
 
-function format(ex, acc=3) {
-    ex = E(ex)
-    if (ex.isInfinite()) return 'Infinity'
-    let e = ex.log10().floor()
-    if (e.lt(9)) {
-        if (e.lt(3)) {
-            return ex.toFixed(acc)
-        }
-        return ex.floor().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    } else {
-        if (ex.gte("eeee9")) {
-            let slog = ex.slog()
-            return (slog.gte(1e9)?'':E(10).pow(slog.sub(slog.floor())).toFixed(3)) + "F" + format(slog.floor(), 0)
-        }
-        let m = ex.div(E(10).pow(e))
-        return (e.log10().gte(9)?'':m.toFixed(3))+'e'+format(e,0)
+function format(ex, acc = 3) {
+  ex = E(ex);
+  if (ex.isInfinite()) return "Infinity";
+  let e = ex.log10().floor();
+  if (e.lt(9)) {
+    if (e.lt(3)) {
+      return ex.toFixed(acc);
     }
+    return ex
+      .floor()
+      .toString()
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  } else {
+    if (ex.gte("eeee9")) {
+      let slog = ex.slog();
+      return (
+        (slog.gte(1e9) ? "" : E(10).pow(slog.sub(slog.floor())).toFixed(3)) +
+        "F" +
+        format(slog.floor(), 0)
+      );
+    }
+    let m = ex.div(E(10).pow(e));
+    return (e.log10().gte(9) ? "" : m.toFixed(3)) + "e" + format(e, 0);
+  }
 }
 
-function loop(){
-    diff = Date.now() - lastUpdate;
-    lastUpdate = Date.now();
+function loop() {
+  diff = Date.now() - lastUpdate;
+  lastUpdate = Date.now();
 
     updateCosts();
     updateNWEffect()
