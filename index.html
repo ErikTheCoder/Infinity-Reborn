@@ -8,9 +8,9 @@
     <script src="js/index.js" defer></script>
 </head>
 <body id="body" class="body">
-    <div id="numberDisplay">Your have reached 0 peaks</div>
-    <div id="numberDisplay">Your wave is moving at 1m/s</div>
-    <div id="numberDisplay">Your wavelength is 1m</div>
+    <div id="numberDisplay"></div>
+    <div>Your wave is moving at 1m/s</div>
+    <div>Your wavelength is 1m</div>
     <div class="tabs">
         <div class="tab maintab" onclick="toTab('mainview')">Main</div>
         <div class="tab prestigetab" onclick="toTab('prestigeview')">Prestige</div>
@@ -23,9 +23,9 @@
     </div>
     <div class="view" id="mainview">
         <div class="waveamount" id="firstwaveamount">You have 0 neutral waves</div>
-        <div class="wavepurchase">
+        <div class="wavepurchase"  onclick="buyNeutralWave()">
             <div class="wavepurchasetext">Buy a neutral wave</div>
-            <div class="wavecosttext" id="wavecosttextid">Cost: 0</div>
+            <div class="wavecosttext" id="wavecosttextid"></div>
         </div>
     </div>
     <div class="view" id="prestigeview">
