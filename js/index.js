@@ -6,3 +6,5 @@ function toTab(e) {
     });
     document.getElementById(e).classList.remove('hidden');
 }
+
+toTab('mainview');
