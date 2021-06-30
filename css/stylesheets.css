@@ -1,5 +1,10 @@
 * {
     font-family: 'Typewriter', monospace;
+    text-align: center;
+}
+
+body {
+    font-size: 20px;
 }
 
 button {
@@ -8,6 +13,7 @@ button {
     font-size: 15px;
     border-radius: 10px;
     cursor: pointer;
+    user-select: none;
 }
 
 .tabs{
@@ -133,12 +139,6 @@ button {
     font-size: 2em;
 }
 
-.waveamount{
-    display: flex;
-    justify-content: center;
-    font-size: 1.75em;
-}
-
 .wavepurchase{
     font-size: 1.5em;
     padding-right: 0.1em;
@@ -148,6 +148,7 @@ button {
     border-style: solid;
     margin:auto;
     border-radius: 0.2em;
+    user-select: none;
 }
 
 .wavepurchase:hover{
@@ -171,7 +172,37 @@ button {
     background-color: lightgray;
     cursor: default;
 }
+.upgrade.small {
+    width: 240px;
+    min-height: 130px;
+}
+.prestige.can,
 .upgrade.can {
     background-color: white;
     cursor: pointer;
+}
+.upgrade.bought {
+    background-color: lightgreen;
+}
+
+.big_symbol {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    font-size: 30px;
+}
+
+.prestige {
+    width: 240px;
+    min-height: 100px;
+    background-color: lightgray;
+    cursor: default;
+}
+
+.cold {
+    color: blue;
+}
+
+.hot {
+    color: red;
 }

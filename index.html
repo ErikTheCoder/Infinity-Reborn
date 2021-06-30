@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity Reborn</title>
     <link rel="stylesheet" href="css/stylesheets.css">
+    <script src="js/Element.js" defer></script>
     <script src="js/ExpantaNum.js" defer></script>
     <script src="js/saves.js" defer></script>
     <script src="js/upgrades.js" defer></script>
+    <script src="js/heat_wave.js" defer></script>
     <script src="js/index.js" defer></script>
 </head>
 <body id="body" class="body" onload="onLoad()">
@@ -25,21 +27,68 @@
         <div class="tab existencetab" onclick="toTab('existenceview')">Existence</div>
     </div>
     <div class="view" id="mainview">
-        <div class="waveamount" id="firstwaveamount">You have 0 neutral waves</div>
-        <div class="wavepurchase"  onclick="buyNeutralWave()">
-            <div class="wavepurchasetext">Buy a neutral wave</div>
-            <div class="wavecosttext" id="wavecosttextid"></div>
-        </div>
-        <div>
-            <table class="tabs">
-                <tr>
-                    <td><button class="upgrade" id="nu_upg1"></button></td>
-                    <td><button class="upgrade" id="nu_upg2"></button></td>
-                </tr><tr>
-                    <td><button class="upgrade" id="nu_upg3"></button></td>
-                    <td><button class="upgrade" id="nu_upg4"></button></td>
-                </tr>
-            </table>
+        <button class='big_symbol' id="toggle_neutral_wave_tab" onclick="toggleTab('neutral_wave_tab')"></button>
+        <span id="firstwaveamount">You have 0 neutral waves</span>
+        <div id="neutral_wave_tab">
+            <div class="wavepurchase"  onclick="buyNeutralWave()">
+                <div class="wavepurchasetext">Buy a neutral wave</div>
+                <div class="wavecosttext" id="wavecosttextid"></div>
+            </div>
+            <div>
+                <table class="tabs">
+                    <tr>
+                        <td><button class="upgrade" id="nu_upg1" onclick="NU_UPGRADES.buy(1)"></button></td>
+                        <td><button class="upgrade" id="nu_upg2" onclick="NU_UPGRADES.buy(2)"></button></td>
+                    </tr><tr>
+                        <td><button class="upgrade" id="nu_upg3" onclick="NU_UPGRADES.buy(3)"></button></td>
+                        <td><button class="upgrade" id="nu_upg4" onclick="NU_UPGRADES.buy(4)"></button></td>
+                    </tr>
+                </table>
+            </div>
+        </div><div id="heat_wave_unl">
+            <button class='big_symbol' id="toggle_heat_wave_tab" onclick="toggleTab('heat_wave_tab')"></button>
+            <span>You have <span id="heat_wave_amount">0</span> total heat waves, which divides wavelength by <span id="heat_wave_effect">1</span></span>
+            <div id="heat_wave_tab">
+                <button class="prestige" id="heat_wave_reset" onclick="resetHeatWave()">Heat your neutral wave for <b id="heat_wave_gain">1</b> heat wave (next at <span id="heat_wave_nextAt">35</span> neutral waves)</button><br><br>
+                <div class="tabs" style="justify-content: space-evenly;">
+                    <div style='width:33%'>
+                        <button class='big_symbol' onclick="HEATWAVE.makeSlider(1)">+</button> You have <span class='cold' id="heat_wave_coldEnergyAmount">0</span> cold energy, which generates <span class='cold' id="heat_wave_coldEnergyGain">0</span> cold energy powers each second.<br>
+                        You have <span class='cold' id="heat_wave_coldEnergyPower">0</span> cold energy powers, which <span id="heat_wave_coldEnergyEffect"></span>.<br><br>
+                        <table class="tabs">
+                            <tr>
+                                <td><button class="upgrade small" id="coldu_upg1" onclick="HW_UPGRADES.energy.buy(0, 1)"></button></td>
+                                <td><button class="upgrade small" id="coldu_upg2" onclick="HW_UPGRADES.energy.buy(0, 2)"></button></td>
+                            </tr><tr>
+                                <td><button class="upgrade small" id="coldu_upg3" onclick="HW_UPGRADES.energy.buy(0, 3)"></button></td>
+                                <td><button class="upgrade small" id="coldu_upg4" onclick="HW_UPGRADES.energy.buy(0, 4)"></button></td>
+                            </tr>
+                        </table>
+                    </div><div style='width:33%'>
+                        You have <span id="heat_wave_unspentAmount">0</span> unspent heat waves.<br><br>
+                        <table class="tabs">
+                            <tr>
+                                <td><button class="upgrade small" id="hw_upg1" onclick="HW_UPGRADES.general.buy(1)"></button></td>
+                                <td><button class="upgrade small" id="hw_upg2" onclick="HW_UPGRADES.general.buy(2)"></button></td>
+                            </tr><tr>
+                                <td><button class="upgrade small" id="hw_upg3" onclick="HW_UPGRADES.general.buy(3)"></button></td>
+                                <td><button class="upgrade small" id="hw_upg4" onclick="HW_UPGRADES.general.buy(4)"></button></td>
+                            </tr>
+                        </table>
+                    </div><div style='width:33%'>
+                        <button class='big_symbol' onclick="HEATWAVE.makeSlider(-1)">+</button> You have <span class='hot' id="heat_wave_hotEnergyAmount">0</span> hot energy, which generates <span class='hot' id="heat_wave_hotEnergyGain">0</span> hot energy powers each second.<br>
+                        You have <span class='hot' id="heat_wave_hotEnergyPower">0</span> hot energy powers, which <span id="heat_wave_hotEnergyEffect"></span>.<br><br>
+                        <table class="tabs">
+                            <tr>
+                                <td><button class="upgrade small" id="hotu_upg1" onclick="HW_UPGRADES.energy.buy(1, 1)"></button></td>
+                                <td><button class="upgrade small" id="hotu_upg2" onclick="HW_UPGRADES.energy.buy(1, 2)"></button></td>
+                            </tr><tr>
+                                <td><button class="upgrade small" id="hotu_upg3" onclick="HW_UPGRADES.energy.buy(1, 3)"></button></td>
+                                <td><button class="upgrade small" id="hotu_upg4" onclick="HW_UPGRADES.energy.buy(1, 4)"></button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="view" id="prestigeview">

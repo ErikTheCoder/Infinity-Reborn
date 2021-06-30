@@ -12,6 +12,19 @@ const PLAYER_DATA = {
     neutralWaves: E(0),
     upgrades: {
         neutral_wave: {},
+        heat_wave: [],
+        cold_energy: [],
+        hot_energy: [],
+    },
+    toggle_show: {
+        neutral_wave_tab: true,
+        heat_wave_tab: true,
+    },
+    heat_wave: {
+        unl: false,
+        total: E(0),
+        slider: E(0),
+        types: [E(0), E(0)],
     },
 }
 
@@ -34,12 +47,24 @@ function checkIfUndefined() {
         let key = Object.keys(PLAYER_DATA.upgrades)[x]
         if (player.upgrades[key] === undefined) player.upgrades[key] = PLAYER_DATA.upgrades[key]
     }
+    for (let x = 0; x < Object.keys(PLAYER_DATA.toggle_show).length; x++) {
+        let key = Object.keys(PLAYER_DATA.toggle_show)[x]
+        if (player.toggle_show[key] === undefined) player.toggle_show[key] = PLAYER_DATA.toggle_show[key]
+    }
+    for (let x = 0; x < Object.keys(PLAYER_DATA.heat_wave).length; x++) {
+        let key = Object.keys(PLAYER_DATA.heat_wave)[x]
+        if (player.heat_wave[key] === undefined) player.heat_wave[key] = PLAYER_DATA.heat_wave[key]
+    }
 }
 
 function convertToExpNum() {
     player.peaks = ex(player.peaks)
     player.neutralWaves = ex(player.neutralWaves)
     for (let x = 1; x <= NU_UPGRADES.length; x++) if (player.upgrades.neutral_wave[x] !== undefined) player.upgrades.neutral_wave[x] = ex(player.upgrades.neutral_wave[x])
+
+    player.heat_wave.total = ex(player.heat_wave.total)
+    player.heat_wave.slider = ex(player.heat_wave.slider)
+    for (let x = 0; x < 2; x++) player.heat_wave.types[x] = player.heat_wave.types[x] !== undefined ? ex(player.heat_wave.types[x]) : E(0)
 }
 
 function save(){
