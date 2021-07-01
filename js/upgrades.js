@@ -174,9 +174,10 @@ const SW_UPGRADES = {
         1: {
             id: 1,
             desc: "Multiples sound wave effect. (based on total sound waves)",
-            cost(x=haveBuyable("sound_wave_buys",this.id)) { return x.add(1) },
+            cost(x=haveBuyable("sound_wave_buys",this.id)) { return E(2).pow(x).floor() },
             effect(x=haveBuyable("sound_wave_buys",this.id)) {
                 let base = player.sound_wave.total.add(1).log10().add(1)
+                if (base.gte(2)) base = base.div(2).pow(1/3).mul(2)
                 let ret = base.pow(x)
                 return ret
             },
