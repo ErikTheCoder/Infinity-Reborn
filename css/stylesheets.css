@@ -175,13 +175,15 @@ button {
 .upgrade.small {
     width: 240px;
     min-height: 130px;
+    font-size: 12px;
 }
 .prestige.can,
 .upgrade.can {
     background-color: white;
     cursor: pointer;
 }
-.upgrade.bought {
+.upgrade.bought,
+.barrier.bought {
     background-color: lightgreen;
 }
 
@@ -205,4 +207,13 @@ button {
 
 .hot {
     color: red;
+}
+
+.barrier {
+    width: 45%;
+    min-height: 40px;
+    border: solid 3px black;
+    background-color: lightgray;
+    font-size: 15px;
+    border-radius: 10px;
 }

@@ -9,6 +9,7 @@
     <script src="js/ExpantaNum.js" defer></script>
     <script src="js/saves.js" defer></script>
     <script src="js/upgrades.js" defer></script>
+    <script src="js/sound_wave.js" defer></script>
     <script src="js/heat_wave.js" defer></script>
     <script src="js/index.js" defer></script>
 </head>
@@ -34,6 +35,7 @@
                 <div class="wavepurchasetext">Buy a neutral wave</div>
                 <div class="wavecosttext" id="wavecosttextid"></div>
             </div>
+            <div id="echo_unl1"></div>
             <div>
                 <table class="tabs">
                     <tr>
@@ -49,6 +51,7 @@
             <button class='big_symbol' id="toggle_heat_wave_tab" onclick="toggleTab('heat_wave_tab')"></button>
             <span>You have <span id="heat_wave_amount">0</span> total heat waves, which divides wavelength by <span id="heat_wave_effect">1</span></span>
             <div id="heat_wave_tab">
+                <button class="upgrade small" id="burst" onclick="SOUND_WAVE.burst.activate()"></button><br>
                 <button class="prestige" id="heat_wave_reset" onclick="resetHeatWave()">Heat your neutral wave for <b id="heat_wave_gain">1</b> heat wave (next at <span id="heat_wave_nextAt">35</span> neutral waves)</button><br><br>
                 <div class="tabs" style="justify-content: space-evenly;">
                     <div style='width:33%'>
@@ -72,6 +75,8 @@
                             </tr><tr>
                                 <td><button class="upgrade small" id="hw_upg3" onclick="HW_UPGRADES.general.buy(3)"></button></td>
                                 <td><button class="upgrade small" id="hw_upg4" onclick="HW_UPGRADES.general.buy(4)"></button></td>
+                            </tr><tr>
+                                <td><button class="upgrade small" id="hw_upg5" onclick="HW_UPGRADES.general.buy(5)"></button></td>
                             </tr>
                         </table>
                     </div><div style='width:33%'>
@@ -86,6 +91,23 @@
                                 <td><button class="upgrade small" id="hotu_upg4" onclick="HW_UPGRADES.energy.buy(1, 4)"></button></td>
                             </tr>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div><div id="sound_wave_unl">
+            <button class='big_symbol' id="toggle_sound_wave_tab" onclick="toggleTab('sound_wave_tab')"></button>
+            <span>You have <span id="sound_wave_amount">0</span> sound waves, which generates <span id="sound_wave_effect">0</span> free neutral waves each second.</span>
+            <div id="sound_wave_tab">
+                You have <span id="sound_wave_power">0</span> free neutral waves (cannot affect heat wave gain)<br><br>
+                <button class="upgrade small" id="sw_buy1" onclick="SW_UPGRADES.buys.buy(1)"></button><br>
+                <button class="prestige" id="sound_wave_reset" onclick="SOUND_WAVE.reset()">Reset all previous features for <b id="sound_wave_gain">1</b> sound wave.</button>
+                <br><br>
+                <div class="tabs" style="justify-content: space-evenly;">
+                    <div style='width:50%'>
+                        You have <span id="sound_wave_total">0</span> total sound waves.<br>
+                        <div class="tabs" id="sw_barriers"></div>
+                    </div><div style='width:50%'>
+                        
                     </div>
                 </div>
             </div>

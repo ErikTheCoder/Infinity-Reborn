@@ -44,7 +44,7 @@ const NU_UPGRADES = {
         effect(x=haveBuyable("neutral_wave", this.id)) {
             let power = HEATWAVE.effect(1).nu.div(HEATWAVE.effect(0).nu)
             if (x.gte(5)) x = x.div(5).pow(1/3).mul(5)
-            let ret = player.neutralWaves.add(1).log10().add(1).pow(x.pow(3/4)).pow(power)
+            let ret = temp.totalNW ? temp.totalNW.add(1).log10().add(1).pow(x.pow(3/4)).pow(power) : E(1)
             return ret
         },
         effDesc(x=this.effect()) { return format(x,2)+"x" },
@@ -59,9 +59,12 @@ const NU_UPGRADES = {
 
 const HW_UPGRADES = {
     general: {
-        can(x) { return temp.heat_wave.unspentAmount.gte(this[x].cost) && !includesUpgrade("heat_wave", x) },
-        buy(x) { if (this.can(x)) player.upgrades.heat_wave.push(x) },
-        length: 4,
+        can(x) { return temp.heat_wave.unspentAmount.gte(this[x].cost) && !includesUpgrade("heat_wave", x) && (x == 5 ? !player.sound_wave.unl : true) },
+        buy(x) { if (this.can(x)) {
+            player.upgrades.heat_wave.push(x)
+            if (x == 5) player.sound_wave.unl = true
+        } },
+        length: 5,
         1: {
             desc: "Increases heat wave effect by 25%.",
             cost: E(2),
@@ -70,7 +73,7 @@ const HW_UPGRADES = {
             desc: "Heat wave scaling is divided by neutral waves at a reduced rate.",
             cost: E(3),
             effect() {
-                let ret = player.neutralWaves.add(1).log10().add(1).pow(1/4)
+                let ret = temp.totalNW ? temp.totalNW.add(1).log10().add(1).pow(1/4) : E(1)
                 if (ret.gte(1.5)) ret = ret.div(1.5).pow(0.5).mul(1.5)
                 return ret
             },
@@ -94,6 +97,10 @@ const HW_UPGRADES = {
                 return ret
             },
             effDesc(x=this.effect()) { return "/"+format(x,2)+(x.gte(1.2)?" (softcapped)":"") },
+        },
+        5: {
+            desc: "Unlock Sound Waves.",
+            cost: E(5),
         },
     },
     energy: {
@@ -150,4 +157,30 @@ const HW_UPGRADES = {
             },
         },
     }
+}
+
+const SW_UPGRADES = {
+    buys: {
+        can(x) { return player.sound_wave.points.gte(this[x].cost()) },
+        buy(x) {
+            let cost = this[x].cost()
+            if (this.can(x)) {
+                player.sound_wave.points = player.sound_wave.points.sub(cost)
+                if (player.upgrades.sound_wave_buys[x] === undefined) player.upgrades.sound_wave_buys[x] = E(0)
+                player.upgrades.sound_wave_buys[x] = player.upgrades.sound_wave_buys[x].add(1)
+            }
+        },
+        length: 1,
+        1: {
+            id: 1,
+            desc: "Multiples sound wave effect. (based on total sound waves)",
+            cost(x=haveBuyable("sound_wave_buys",this.id)) { return x.add(1) },
+            effect(x=haveBuyable("sound_wave_buys",this.id)) {
+                let base = player.sound_wave.total.add(1).log10().add(1)
+                let ret = base.pow(x)
+                return ret
+            },
+            effDesc(x=this.effect(),y=this.effect(haveBuyable("sound_wave_buys",this.id).add(1))) { return format(x,2)+"x -> "+format(y,2)+"x" },
+        },
+    },
 }

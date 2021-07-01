@@ -45,14 +45,18 @@ const HEATWAVE = {
 }
 
 function updateHeatWaveDisplay() {
-    temp.el.heat_wave_amount.setTxt(format(player.heat_wave.total, 0))
-    temp.el.heat_wave_effect.setTxt(format(temp.heat_wave.effect, 1))
     temp.el.heat_wave_gain.setTxt(format(temp.heat_wave.gain, 0))
     temp.el.heat_wave_nextAt.setTxt(format(temp.heat_wave.nextAt, 0))
 
     temp.el.heat_wave_nextAt.setTxt(format(temp.heat_wave.nextAt, 0))
 
     temp.el.heat_wave_reset.setClasses({"prestige": true, 'can': canResetHeatWave()})
+
+    temp.el.burst.setClasses({"upgrade": true, "small": true, "hidden": !SOUND_WAVE.barriers.reached(1), "can": SOUND_WAVE.burst.canActivate()})
+    temp.el.burst.setHTML(
+        `Activate Burst, which makes heat wave is ${format(SOUND_WAVE.burst.effect().sub(1).mul(100), 2)}% effective.<br>
+        Cooldown: ${format(player.sound_wave.burst_cooldown, 1)} s`
+    )
 
     temp.el.heat_wave_unspentAmount.setTxt(format(temp.heat_wave.unspentAmount, 0))
 
@@ -120,6 +124,7 @@ function updateHeatWave() {
     temp.heat_wave.nextAt = getHeatWaveNextAt()
     temp.heat_wave.effect = player.heat_wave.total.add(1)
     if (includesUpgrade('heat_wave', 1)) temp.heat_wave.effect = temp.heat_wave.effect.mul(1.25)
+    if (player.burst_activated) temp.heat_wave.effect = temp.heat_wave.effect.pow(SOUND_WAVE.burst.effect())
 
     temp.heat_wave.unspentAmount = player.heat_wave.total
     for (let x = 1; x <= HW_UPGRADES.general.length; x++) if (includesUpgrade('heat_wave', x)) temp.heat_wave.unspentAmount = temp.heat_wave.unspentAmount.sub(HW_UPGRADES.general[x].cost)
