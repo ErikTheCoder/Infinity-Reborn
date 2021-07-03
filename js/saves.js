@@ -21,6 +21,7 @@ const PLAYER_DATA = {
         cold_energy: [],
         hot_energy: [],
         sound_wave_buys: {},
+        sound_wave_upgs: [],
     },
     toggle_show: {
         neutral_wave_tab: true,

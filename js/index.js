@@ -61,7 +61,7 @@ function updateCosts(){
 function updateDisplay(){
     temp.el.peaksAmount.setTxt("You have reached " + format(player.peaks, 1) + " peaks");
     temp.el.peaksGain.setTxt("Your wave is moving at " + format(temp.peaksGain, 1) + " m/s");
-    temp.el.wavelength.setTxt("Your wavelength is " + format(temp.wavelengthdisplay, 6) + " m");
+    temp.el.wavelength.setHTML("Your wavelength is " + (temp.wavelength.gte(1e6)?"1 / "+format(temp.wavelength,0):format(temp.wavelengthdisplay, 6)) + " m");
     if (tab == "mainview") {
         temp.el.firstwaveamount.setTxt("You have " + format(player.neutralWaves, 0) + (player.freeNeutralWaves.gt(0)?" + "+format(player.freeNeutralWaves,2):"") + " neutral waves, which multiples peaks gain by "+format(temp.neutralWaveEffect,1)+"x");
         if (player.toggle_show.neutral_wave_tab) {

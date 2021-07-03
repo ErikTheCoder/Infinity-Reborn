@@ -54,7 +54,7 @@ function updateHeatWaveDisplay() {
 
     temp.el.burst.setClasses({"upgrade": true, "small": true, "hidden": !SOUND_WAVE.barriers.reached(1), "can": SOUND_WAVE.burst.canActivate()})
     temp.el.burst.setHTML(
-        `Activate Burst, which makes heat wave is ${format(SOUND_WAVE.burst.effect().sub(1).mul(100), 2)}% effective.<br>
+        `Activate Burst, which makes heat wave is ${format(SOUND_WAVE.burst.effect().sub(1).mul(100), 2)}% effective.${SOUND_WAVE.burst.effect().gte(6)?" (softcapped)":""}<br>
         Cooldown: ${format(player.sound_wave.burst_cooldown, 1)} s`
     )
 

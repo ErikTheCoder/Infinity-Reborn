@@ -1,12 +1,16 @@
 const SOUND_WAVE = {
     gain() {
         let gain = player.heat_wave.total.sub(12).div(6)
+        if (gain.lt(1)) return E(0)
+        if (includesUpgrade("sound_wave_upgs", 3)) gain = gain.mul(SW_UPGRADES.upgs[3].effect())
         return gain.floor().max(0)
     },
     can() { return this.gain().gte(1) },
     effect(x=player.sound_wave.points) {
         let ret = x.mul(0.1)
         if (haveBuyable("sound_wave_buys", 1).gte(1)) ret = ret.mul(SW_UPGRADES.buys[1].effect())
+        if (includesUpgrade("sound_wave_upgs", 1)) ret = ret.mul(2)
+        if (includesUpgrade("sound_wave_upgs", 2)) ret = ret.mul(SW_UPGRADES.upgs[2].effect())
         return ret
     },
     reset() {
@@ -30,7 +34,7 @@ const SOUND_WAVE = {
     },
 
     barriers: {
-        length: 2,
+        length: 3,
         reached(x) { return player.sound_wave.total.gte(this[x].req) },
         1: {
             desc: "Unlock Burst.",
@@ -39,6 +43,10 @@ const SOUND_WAVE = {
         2: {
             desc: "Unlock Echo<sup>1</sup> (Neutral Waves Autobuyer). Neutral Waves doesn't spent peaks.",
             req: E(5),
+        },
+        3: {
+            desc: "Unlock Sound upgrades.",
+            req: E(25),
         },
     },
 
@@ -51,7 +59,8 @@ const SOUND_WAVE = {
             }
         },
         effect() {
-            let ret = player.sound_wave.total.add(1).log10().add(1).mul(2)
+            let ret = player.sound_wave.total.add(1).log10().add(1).pow(includesUpgrade("sound_wave_upgs", 4)?1.5:1).mul(2)
+            if (ret.gte(6)) ret = ret.div(6).cbrt().mul(6)
             return ret
         },
     },
@@ -71,6 +80,14 @@ function updateSoundWaveDisplay() {
         Cost: ${format(SW_UPGRADES.buys[x].cost(), 0)} Sound Waves`)
 
         temp.el["sw_buy"+x].setClasses({"upgrade": true, "small": true, 'can': SW_UPGRADES.buys.can(x)})
+    }
+
+    for (let x = 1; x <= SW_UPGRADES.upgs.length; x++) {
+        temp.el["sw_upg"+x].setHTML(`${SW_UPGRADES.upgs[x].desc}<br>
+        ${SW_UPGRADES.upgs[x].effDesc?"Currently: "+SW_UPGRADES.upgs[x].effDesc()+"<br>":""}
+        Cost: ${format(SW_UPGRADES.upgs[x].cost, 0)} Sound Waves`)
+
+        temp.el["sw_upg"+x].setClasses({"upgrade": true, 'can': SW_UPGRADES.upgs.can(x), 'hidden': !SW_UPGRADES.upgs[x].unl(), "bought": includesUpgrade("sound_wave_upgs", x)})
     }
 
     for (let x = 1; x <= SOUND_WAVE.barriers.length; x++) {
@@ -97,12 +114,13 @@ function SWLoop(dt) {
 
 function setupBarrierTable() {
     let table = new Element("sw_barriers")
-    let text = ""
+    let text = "<table>"
     for (let x = 1; x <= SOUND_WAVE.barriers.length; x++) {
         let b = SOUND_WAVE.barriers[x]
-        text += `<div class="barrier" id="sw_barrier${x}">
+        text += `<tr><td><div class="barrier" id="sw_barrier${x}">
             <b>${format(b.req,0)} Sound Waves</b><br>${b.desc}
-        </div>`
+        </div></td></tr>`
     }
+    text += "</table>"
     table.setHTML(text)
 }

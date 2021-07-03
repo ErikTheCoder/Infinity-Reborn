@@ -105,9 +105,17 @@
                 <div class="tabs" style="justify-content: space-evenly;">
                     <div style='width:50%'>
                         You have <span id="sound_wave_total">0</span> total sound waves.<br>
-                        <div class="tabs" id="sw_barriers"></div>
+                        <div class="tabs" id="sw_barriers" style="width: 100%;"></div>
                     </div><div style='width:50%'>
-                        
+                        <table class="tabs">
+                            <tr>
+                                <td><button class="upgrade" id="sw_upg1" onclick="SW_UPGRADES.upgs.buy(1)"></button></td>
+                                <td><button class="upgrade" id="sw_upg2" onclick="SW_UPGRADES.upgs.buy(2)"></button></td>
+                            </tr><tr>
+                                <td><button class="upgrade" id="sw_upg3" onclick="SW_UPGRADES.upgs.buy(3)"></button></td>
+                                <td><button class="upgrade" id="sw_upg4" onclick="SW_UPGRADES.upgs.buy(4)"></button></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

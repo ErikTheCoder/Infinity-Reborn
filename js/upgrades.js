@@ -184,4 +184,45 @@ const SW_UPGRADES = {
             effDesc(x=this.effect(),y=this.effect(haveBuyable("sound_wave_buys",this.id).add(1))) { return format(x,2)+"x -> "+format(y,2)+"x" },
         },
     },
+    upgs: {
+        can(x) { return player.sound_wave.points.gte(this[x].cost) && !includesUpgrade("sound_wave_upgs", x) },
+        buy(x) {
+            let cost = this[x].cost
+            if (this.can(x)) {
+                player.sound_wave.points = player.sound_wave.points.sub(cost)
+                player.upgrades.sound_wave_upgs.push(x)
+            }
+        },
+        length: 4,
+        1: {
+            unl() { return SOUND_WAVE.barriers.reached(3) },
+            desc: "Sound waves produce neutral waves 2x as fast.",
+            cost: E(10),
+        },
+        2: {
+            unl() { return SOUND_WAVE.barriers.reached(3) },
+            desc: "Hot energy boosts sound wave effect.",
+            cost: E(15),
+            effect() {
+                let ret = HEATWAVE.getTypeForGain()[1].add(1).pow(0.5)
+                return ret
+            },
+            effDesc(x=this.effect()) { return format(x,2)+"x" },
+        },
+        3: {
+            unl() { return SOUND_WAVE.barriers.reached(3) },
+            desc: "Cold energy boosts sound wave gain.",
+            cost: E(20),
+            effect() {
+                let ret = HEATWAVE.getTypeForGain()[0].add(1).pow(0.25)
+                return ret
+            },
+            effDesc(x=this.effect()) { return format(x,2)+"x" },
+        },
+        4: {
+            unl() { return SOUND_WAVE.barriers.reached(3) },
+            desc: "Burst also affects heat wave efficiency.",
+            cost: E(30),
+        },
+    },
 }
