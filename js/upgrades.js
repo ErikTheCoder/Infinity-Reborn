@@ -193,7 +193,7 @@ const SW_UPGRADES = {
                 player.upgrades.sound_wave_upgs.push(x)
             }
         },
-        length: 4,
+        length: 8,
         1: {
             unl() { return SOUND_WAVE.barriers.reached(3) },
             desc: "Sound waves produce neutral waves 2x as fast.",
@@ -223,6 +223,36 @@ const SW_UPGRADES = {
             unl() { return SOUND_WAVE.barriers.reached(3) },
             desc: "Burst also affects heat wave efficiency.",
             cost: E(30),
+        },
+        5: {
+            unl() { return SOUND_WAVE.barriers.reached(4) },
+            desc: "Burst cooldown is doubled.",
+            cost: E(50),
+        },
+        6: {
+            unl() { return SOUND_WAVE.barriers.reached(4) },
+            desc: "Burst efficiency is boosted based on sound waves.",
+            cost: E(75),
+            effect() {
+                let ret = player.sound_wave.points.add(1).log10().add(1).pow(0.5)
+                return ret
+            },
+            effDesc(x=this.effect()) { return format(x,2)+"x" },
+        },
+        7: {
+            unl() { return SOUND_WAVE.barriers.reached(4) },
+            desc: "Burst efficiency is boosted based on total heat waves.",
+            cost: E(100),
+            effect() {
+                let ret = player.heat_wave.total.add(1).log10().add(1).pow(0.5)
+                return ret
+            },
+            effDesc(x=this.effect()) { return format(x,2)+"x" },
+        },
+        8: {
+            unl() { return SOUND_WAVE.barriers.reached(4) },
+            desc: "Burst efficiency is 25% stronger. (not affected by softcap)",
+            cost: E(200),
         },
     },
 }

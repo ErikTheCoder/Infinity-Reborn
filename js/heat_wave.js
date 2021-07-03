@@ -1,6 +1,6 @@
 const HEATWAVE = {
     type: ['cold', 'hot'],
-    getTypeForGain() { return [player.heat_wave.slider, player.heat_wave.total.sub(player.heat_wave.slider)] },
+    getTypeForGain() { return [player.heat_wave.total.sub(player.heat_wave.slider), player.heat_wave.slider] },
     makeSlider(n) { player.heat_wave.slider = player.heat_wave.slider.add(n).max(0).min(player.heat_wave.total) },
     energyGain(x) {
         let gain = E(2).pow(this.getTypeForGain()[x]).sub(1)

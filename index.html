@@ -55,7 +55,7 @@
                 <button class="prestige" id="heat_wave_reset" onclick="resetHeatWave()">Heat your neutral wave for <b id="heat_wave_gain">1</b> heat wave (next at <span id="heat_wave_nextAt">35</span> neutral waves)</button><br><br>
                 <div class="tabs" style="justify-content: space-evenly;">
                     <div style='width:33%'>
-                        <button class='big_symbol' onclick="HEATWAVE.makeSlider(1)">+</button> You have <span class='cold' id="heat_wave_coldEnergyAmount">0</span> cold energy, which generates <span class='cold' id="heat_wave_coldEnergyGain">0</span> cold energy powers each second.<br>
+                        <button class='big_symbol' onclick="HEATWAVE.makeSlider(-1)">+</button> You have <span class='cold' id="heat_wave_coldEnergyAmount">0</span> cold energy, which generates <span class='cold' id="heat_wave_coldEnergyGain">0</span> cold energy powers each second.<br>
                         You have <span class='cold' id="heat_wave_coldEnergyPower">0</span> cold energy powers, which <span id="heat_wave_coldEnergyEffect"></span>.<br><br>
                         <table class="tabs">
                             <tr>
@@ -80,7 +80,7 @@
                             </tr>
                         </table>
                     </div><div style='width:33%'>
-                        <button class='big_symbol' onclick="HEATWAVE.makeSlider(-1)">+</button> You have <span class='hot' id="heat_wave_hotEnergyAmount">0</span> hot energy, which generates <span class='hot' id="heat_wave_hotEnergyGain">0</span> hot energy powers each second.<br>
+                        <button class='big_symbol' onclick="HEATWAVE.makeSlider(1)">+</button> You have <span class='hot' id="heat_wave_hotEnergyAmount">0</span> hot energy, which generates <span class='hot' id="heat_wave_hotEnergyGain">0</span> hot energy powers each second.<br>
                         You have <span class='hot' id="heat_wave_hotEnergyPower">0</span> hot energy powers, which <span id="heat_wave_hotEnergyEffect"></span>.<br><br>
                         <table class="tabs">
                             <tr>
@@ -109,11 +109,19 @@
                     </div><div style='width:50%'>
                         <table class="tabs">
                             <tr>
-                                <td><button class="upgrade" id="sw_upg1" onclick="SW_UPGRADES.upgs.buy(1)"></button></td>
-                                <td><button class="upgrade" id="sw_upg2" onclick="SW_UPGRADES.upgs.buy(2)"></button></td>
+                                <td><button class="upgrade small" id="sw_upg1" onclick="SW_UPGRADES.upgs.buy(1)"></button></td>
+                                <td><button class="upgrade small" id="sw_upg2" onclick="SW_UPGRADES.upgs.buy(2)"></button></td>
                             </tr><tr>
-                                <td><button class="upgrade" id="sw_upg3" onclick="SW_UPGRADES.upgs.buy(3)"></button></td>
-                                <td><button class="upgrade" id="sw_upg4" onclick="SW_UPGRADES.upgs.buy(4)"></button></td>
+                                <td><button class="upgrade small" id="sw_upg3" onclick="SW_UPGRADES.upgs.buy(3)"></button></td>
+                                <td><button class="upgrade small" id="sw_upg4" onclick="SW_UPGRADES.upgs.buy(4)"></button></td>
+                            </tr>
+                        </table><br><table class="tabs">
+                            <tr>
+                                <td><button class="upgrade small" id="sw_upg5" onclick="SW_UPGRADES.upgs.buy(5)"></button></td>
+                                <td><button class="upgrade small" id="sw_upg6" onclick="SW_UPGRADES.upgs.buy(6)"></button></td>
+                            </tr><tr>
+                                <td><button class="upgrade small" id="sw_upg7" onclick="SW_UPGRADES.upgs.buy(7)"></button></td>
+                                <td><button class="upgrade small" id="sw_upg8" onclick="SW_UPGRADES.upgs.buy(8)"></button></td>
                             </tr>
                         </table>
                     </div>

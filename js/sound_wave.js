@@ -34,7 +34,7 @@ const SOUND_WAVE = {
     },
 
     barriers: {
-        length: 3,
+        length: 4,
         reached(x) { return player.sound_wave.total.gte(this[x].req) },
         1: {
             desc: "Unlock Burst.",
@@ -48,6 +48,10 @@ const SOUND_WAVE = {
             desc: "Unlock Sound upgrades.",
             req: E(25),
         },
+        4: {
+            desc: "Unlock Burst upgrades.",
+            req: E(125),
+        },
     },
 
     burst: {
@@ -55,12 +59,17 @@ const SOUND_WAVE = {
         activate() {
             if (this.canActivate()) {
                 player.burst_activated = true
-                player.sound_wave.burst_cooldown = 5
+                let cooldown = 5
+                if (includesUpgrade("sound_wave_upgs", 5)) cooldown *= 2
+                player.sound_wave.burst_cooldown = cooldown
             }
         },
         effect() {
             let ret = player.sound_wave.total.add(1).log10().add(1).pow(includesUpgrade("sound_wave_upgs", 4)?1.5:1).mul(2)
+            if (includesUpgrade("sound_wave_upgs", 6)) ret = ret.mul(SW_UPGRADES.upgs[6].effect())
+            if (includesUpgrade("sound_wave_upgs", 7)) ret = ret.mul(SW_UPGRADES.upgs[7].effect())
             if (ret.gte(6)) ret = ret.div(6).cbrt().mul(6)
+            if (includesUpgrade("sound_wave_upgs", 8)) ret = ret.mul(1.25)
             return ret
         },
     },
@@ -87,7 +96,7 @@ function updateSoundWaveDisplay() {
         ${SW_UPGRADES.upgs[x].effDesc?"Currently: "+SW_UPGRADES.upgs[x].effDesc()+"<br>":""}
         Cost: ${format(SW_UPGRADES.upgs[x].cost, 0)} Sound Waves`)
 
-        temp.el["sw_upg"+x].setClasses({"upgrade": true, 'can': SW_UPGRADES.upgs.can(x), 'hidden': !SW_UPGRADES.upgs[x].unl(), "bought": includesUpgrade("sound_wave_upgs", x)})
+        temp.el["sw_upg"+x].setClasses({"upgrade": true, "small": true, 'can': SW_UPGRADES.upgs.can(x), 'hidden': !SW_UPGRADES.upgs[x].unl(), "bought": includesUpgrade("sound_wave_upgs", x)})
     }
 
     for (let x = 1; x <= SOUND_WAVE.barriers.length; x++) {
